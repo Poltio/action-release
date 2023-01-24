@@ -1,0 +1,35 @@
+name: "Create a new Version Tag and Release"
+description: "Increases semver number and creates a new tag and github release based on tag"
+
+inputs:
+  alias:
+    description: "Version alias, you can leave it blank or use the default v"
+    required: false
+    default: "v"
+
+outputs:
+  version:
+    description: "Newly generated version"
+    value: ${{ steps.newversion.outputs.version }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get a new major version
+      if: contains(github.event.pull_request.labels.*.name, 'major')
+      run: echo "app_version=`sh release.sh -m -a ${{ inputs.alias }}`" >> $GITHUB_ENV
+      shell: bash
+
+    - name: get a new minor version
+      if: contains(github.event.pull_request.labels.*.name, 'minor') && contains(github.event.pull_request.labels.*.name, 'major') != true
+      run: echo "app_version=`sh release.sh -i -a ${{ inputs.alias }}`" >> $GITHUB_ENV
+      shell: bash
+
+    - name: get a new patched version number
+      if: contains(github.event.pull_request.labels.*.name, 'minor') != true && contains(github.event.pull_request.labels.*.name, 'major') != true
+      run: echo "app_version=`sh release.sh -p -a ${{ inputs.alias }}`" >> $GITHUB_ENV
+      shell: bash
+
+    - id: newversion
+      run: echo "${{ env.app_version }}" >> $GITHUB_OUTPUT
+      shell: bash
