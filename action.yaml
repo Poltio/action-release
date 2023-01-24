@@ -36,15 +36,16 @@ runs:
     - id: newversion
       run: echo "version=${{ env.app_version }}" >> $GITHUB_OUTPUT
       shell: bash
-#   - name: Create release
-#     if: github.event.pull_request.merged == true
-#     id: create_release
-#     uses: actions/create-release@latest
-#     env:
-#       GITHUB_TOKEN: ${{ inputs.token }}
-#     with:
-#       tag_name: ${{ env.app_version }}
-#       release_name: ${{ github.event.pull_request.title }}
-#       body: ${{ github.event.pull_request.body }}
-#       draft: false
-#       prerelease: false
+
+    - name: Create release
+      if: github.event.pull_request.merged == true
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+      with:
+        tag_name: ${{ env.app_version }}
+        release_name: ${{ github.event.pull_request.title }}
+        body: ${{ github.event.pull_request.body }}
+        draft: false
+        prerelease: false
