@@ -6,6 +6,9 @@ inputs:
     description: "Version alias, you can leave it blank or use the default v"
     required: false
     default: "v"
+  token:
+    description: "Your github token "
+    required: true
 
 outputs:
   version:
@@ -33,3 +36,16 @@ runs:
     - id: newversion
       run: echo "${{ env.app_version }}" >> $GITHUB_OUTPUT
       shell: bash
+
+    - name: Create release
+      if: github.event.pull_request.merged == true
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+      with:
+        tag_name: ${{ env.app_version }}
+        release_name: ${{ github.event.pull_request.title }}
+        body: ${{ github.event.pull_request.body }}
+        draft: false
+        prerelease: false
