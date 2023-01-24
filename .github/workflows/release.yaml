@@ -8,10 +8,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Create a new release
 
+    if: github.event.pull_request.merged
+
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - id: release
         uses: poltio/action-release@v0.0.11
