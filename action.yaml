@@ -18,6 +18,8 @@ outputs:
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v3
+
     - name: Get a new major version
       if: contains(github.event.pull_request.labels.*.name, 'major')
       run: echo "app_version=`sh release.sh -m -a ${{ inputs.alias }}`" >> $GITHUB_ENV

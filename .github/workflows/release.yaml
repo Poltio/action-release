@@ -1,7 +1,8 @@
 name: Create new version
 on:
-  pull_request:
-    types: [closed]
+  #pull_request:
+  #  types: [closed]
+  push
 
 jobs:
   release:
@@ -12,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - id: release
-        uses: poltio/action-release@v0.0.2
+        uses: poltio/action-release@v0.0.3
         with:
           alias: "v"
           token: ${{ secrets.GH_TOKEN }}
