@@ -39,13 +39,11 @@ runs:
 
     - name: Create release
       if: github.event.pull_request.merged == true
-      id: create_release
-      uses: actions/create-release@latest
-      env:
-        GITHUB_TOKEN: ${{ inputs.token }}
+      uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ env.app_version }}
-        release_name: ${{ github.event.pull_request.title }}
+        token: ${{ inputs.token }}
         body: ${{ github.event.pull_request.body }}
+        tag_name: ${{ env.app_version }}
+        name: ${{ github.event.pull_request.title }}
         draft: false
         prerelease: false
