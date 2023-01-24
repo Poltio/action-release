@@ -20,17 +20,17 @@ runs:
   steps:
     - name: Get a new major version
       if: contains(github.event.pull_request.labels.*.name, 'major')
-      run: echo "app_version=$(sh release.sh -m -a ${{ inputs.alias }})" >> $GITHUB_ENV
+      run: echo "app_version=$(bash release.sh -m -a ${{ inputs.alias }})" >> $GITHUB_ENV
       shell: bash
 
     - name: get a new minor version
       if: contains(github.event.pull_request.labels.*.name, 'minor') && contains(github.event.pull_request.labels.*.name, 'major') != true
-      run: echo "app_version=$(sh release.sh -i -a ${{ inputs.alias }})" >> $GITHUB_ENV
+      run: echo "app_version=$(bash release.sh -i -a ${{ inputs.alias }})" >> $GITHUB_ENV
       shell: bash
 
     - name: get a new patched version number
       if: contains(github.event.pull_request.labels.*.name, 'minor') != true && contains(github.event.pull_request.labels.*.name, 'major') != true
-      run: echo "app_version=$(sh release.sh -p -a ${{ inputs.alias }})" >> $GITHUB_ENV
+      run: echo "app_version=$(bash release.sh -p -a ${{ inputs.alias }})" >> $GITHUB_ENV
       shell: bash
 
     - id: newversion

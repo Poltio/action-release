@@ -13,12 +13,8 @@ checkNumber () {
 
 # Get the latest tag 
 VERSION=`git describe --abbrev=0 --tags` 
-echo $VERSION
 # remove the v in the beginning. 
 VERSION="${VERSION/v/}"
-echo $VERSION
-
-exit;
 
 IFS='.' read -a vers <<< "$VERSION"
 
