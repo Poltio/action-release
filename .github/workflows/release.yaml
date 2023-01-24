@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - id: release
-        uses: poltio/action-release@v0
+        uses: poltio/action-release@main
         with:
           alias: "v"
           token: ${{ secrets.GH_TOKEN }}
