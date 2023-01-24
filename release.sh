@@ -1,7 +1,5 @@
 #!/bin/bash
 
-ALIAS="v"
-
 checkNumber () {
 	NUMBER=$1
 	re='^[0-9]+$'
@@ -22,17 +20,16 @@ MAJOR=$(checkNumber ${vers[0]})
 MINOR=$(checkNumber ${vers[1]})
 PATCH=$(checkNumber ${vers[2]})
 
-while getopts mipa: flag
+while getopts mip flag
 do
 	case "${flag}" in
 		m) ((MAJOR+=1));MINOR=0;PATCH=0;;
 		i) ((MINOR+=1));PATCH=0;;
 		p) ((PATCH+=1));;
-		a) ALIAS=${OPTARG};;
 		*) ((PATCH+=1));;
 	esac
 done
 
-NEWVERSION="${ALIAS}${MAJOR}.${MINOR}.${PATCH}";
+NEWVERSION="v${MAJOR}.${MINOR}.${PATCH}";
 
 echo $NEWVERSION
