@@ -24,13 +24,13 @@ PATCH=$(checkNumber ${vers[2]})
 
 while getopts mipa: flag
 do
-    case "${flag}" in
-				m) ((MAJOR+=1));MINOR=0;PATCH=0;;
-				i) ((MINOR+=1));PATCH=0;;
-				p) ((PATCH+=1));;
-				a) ALIAS=${OPTARG};;
-				*) ((PATCH+=1));;
-    esac
+	case "${flag}" in
+		m) ((MAJOR+=1));MINOR=0;PATCH=0;;
+		i) ((MINOR+=1));PATCH=0;;
+		p) ((PATCH+=1));;
+		a) ALIAS=${OPTARG};;
+		*) ((PATCH+=1));;
+	esac
 done
 
 NEWVERSION="${ALIAS}${MAJOR}.${MINOR}.${PATCH}";
