@@ -6,8 +6,9 @@ checkNumber () {
 	NUMBER=$1
 	re='^[0-9]+$'
 	if ! [[ $NUMBER =~ $re ]] ; then
-		return 0; return $NUMBER;
+		NUMBER=0;
 	fi
+	echo "$NUMBER";
 }
 
 # Get the latest tag 
@@ -17,12 +18,9 @@ VERSION="${VERSION/v/}"
 
 IFS='.' read -a vers <<< "$VERSION"
 
-checkNumber ${vers[0]}
-MAJOR=$?
-checkNumber ${vers[1]}
-MINOR=$?
-checkNumber ${vers[2]}
-PATCH=$?
+MAJOR=$(checkNumber ${vers[0]})
+MINOR=$(checkNumber ${vers[1]})
+PATCH=$(checkNumber ${vers[2]})
 
 while getopts mipa: flag
 do
