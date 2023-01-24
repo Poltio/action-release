@@ -15,8 +15,8 @@ checkNumber () {
 VERSION=`git describe --abbrev=0 --tags` 
 echo $VERSION
 # remove the v in the beginning. 
-#VERSION="${VERSION/v/}"
-#echo $VERSION
+VERSION="${VERSION/v/}"
+echo $VERSION
 
 exit;
 
