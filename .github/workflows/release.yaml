@@ -18,5 +18,4 @@ jobs:
       - id: release
         uses: poltio/action-release@main
         with:
-          alias: "v"
           token: ${{ secrets.GH_TOKEN }}
