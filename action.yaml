@@ -44,6 +44,6 @@ runs:
         token: ${{ inputs.token }}
         body: ${{ github.event.pull_request.body }}
         tag_name: ${{ env.app_version }}
-        name: ${{ github.event.pull_request.title }}
+        name: "${{ env.app_version }}: ${{ github.event.pull_request.title }}"
         draft: false
         prerelease: false
